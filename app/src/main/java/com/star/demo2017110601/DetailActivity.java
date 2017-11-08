@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -58,6 +59,11 @@ public class DetailActivity extends AppCompatActivity {
         builder.show();
 
     }
-
+    public void clickEdit(View v) {
+        Intent intent = new Intent(this , EditActivity.class);
+        Log.d("DATA", "send out id:" + id);
+        intent.putExtra("id" , id);
+        startActivity(intent);
+    }
 
 }
