@@ -1,5 +1,6 @@
 package com.star.demo2017110601;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
@@ -65,7 +66,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.menu_add)
         {
-//            return true;
+            Intent intent = new Intent(MainActivity.this , AddActivity.class);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
