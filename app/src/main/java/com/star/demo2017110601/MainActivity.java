@@ -5,6 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -32,7 +34,11 @@ public class MainActivity extends AppCompatActivity {
         DB_FILE = getFilesDir() + File.separator + "mydata.sqlite";
         copyDBFile();
         SQLiteDatabase db = SQLiteDatabase.openDatabase(DB_FILE, null, SQLiteDatabase.OPEN_READWRITE);
-        Cursor c = db.rawQuery("Select * from phone", null);
+//        Cursor c = db.rawQuery("Select * from phone", null);       // studio的寫法
+
+        //SQLite 的寫法
+        Cursor c = db.query("phone" , new String[]{"id" , "username" , "tel"}, null , null , null , null , null);
+
         if (c.moveToFirst())
         {
             do {
@@ -48,7 +54,23 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-   public void copyDBFile() {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_activity ,menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.menu_add)
+        {
+//            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void copyDBFile() {
         try {
             File f = new File(DB_FILE);
             if (! f.exists())
