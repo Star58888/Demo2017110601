@@ -16,7 +16,7 @@ public class AddActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add);
     }
     public void clickAdd(View v) {
-        SQLiteDatabase db = SQLiteDatabase.openDatabase(DB_FILE, null, SQLiteDatabase.OPEN_READWRITE);
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(DBInfo.DB_FILE, null, SQLiteDatabase.OPEN_READWRITE);
         EditText ed = findViewById(R.id.editText);
         EditText ed2 = findViewById(R.id.editText2);
         String username = ed.getText().toString();
