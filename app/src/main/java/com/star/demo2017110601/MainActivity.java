@@ -37,39 +37,38 @@ public class MainActivity extends AppCompatActivity {
         lv = (ListView) findViewById(R.id.listView);
         mylist = new ArrayList<>();
         showList = new ArrayList<>();
-
         DBInfo.DB_FILE = getFilesDir() + File.separator + "mydata.sqlite";
         copyDBFile();
 
+
         adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, showList);
         lv.setAdapter(adapter);
-
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-                intent.putExtra("id" ,mylist.get(position).id);
-                startActivity(intent);
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent it = new Intent(MainActivity.this, DetailActivity.class);
+                it.putExtra("id", mylist.get(position).id);
+                startActivity(it);
             }
         });
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         mylist.clear();
+        showList.clear();
         SQLiteDatabase db = SQLiteDatabase.openDatabase(DBInfo.DB_FILE, null, SQLiteDatabase.OPEN_READWRITE);
 //        Cursor c = db.rawQuery("Select * from phone", null);       // studio的寫法
         //SQLite 的寫法
-        Cursor c = db.query("phone" , new String[]{"id" , "username" , "tel"}, null , null , null , null , null);
+        Cursor c = db.query("phone", new String[] {"id", "username", "tel"}, null,null,null,null,null);
         if (c.moveToFirst())
         {
             do {
-//                mylist.add(c.getString(1) + "," + c.getString(2));
-//                Log.d("DATA", c.getString(1) + "," + c.getString(2));
+
                 mylist.add(new Phone(c.getInt(0), c.getString(1), c.getString(2)));
                 showList.add(c.getString(1));
-
             } while (c.moveToNext());
         }
         adapter.notifyDataSetChanged();
@@ -107,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
                 os.close();
                 is.close();
             }
-
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
